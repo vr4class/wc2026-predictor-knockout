@@ -10,7 +10,7 @@
 
     <div class="w-full max-w-xl bg-gray-800 rounded-2xl shadow-2xl p-6 border border-gray-700">
         <h1 class="text-3xl font-extrabold text-center mb-2 text-yellow-500">🏆 2026 World Cup Predictor</h1>
-        <p class="text-sm text-gray-400 text-center mb-6">Round of 32 Simulation Model (Live Group Stage Form)</p>
+        <p class="text-sm text-gray-400 text-center mb-6">Round of 32 Simulation Model (With Score Projections)</p>
 
         <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
@@ -27,45 +27,84 @@
             🚀 Run 10,000 Simulations
         </button>
 
-        <div id="results" class="mt-8 hidden space-y-4">
-            <h3 class="text-xl font-bold text-center border-b border-gray-700 pb-2">Projections to Advance</h3>
+        <div id="results" class="mt-8 hidden space-y-6">
             
-            <div>
-                <div class="flex justify-between text-sm font-semibold mb-1">
-                    <span id="nameA">Team A</span>
-                    <span id="probA">0%</span>
+            <div class="bg-gray-900 border border-yellow-500/30 rounded-xl p-4 text-center">
+                <span class="text-xs font-bold uppercase text-yellow-500 tracking-wider">Most Likely Regular Time Score</span>
+                <div class="text-4xl font-black my-1" id="predictedScore">0 - 0</div>
+                <p class="text-xs text-gray-400" id="overtimeNotice"></p>
+            </div>
+
+            <div class="bg-gray-750 border border-gray-700 rounded-xl p-4">
+                <h4 class="text-sm font-bold uppercase text-gray-400 mb-2 flex items-center gap-1">🔑 Tactical Match Insight</h4>
+                <p class="text-sm text-gray-200 leading-relaxed" id="matchInsight">Loading analytics...</p>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-md font-bold uppercase text-gray-400 tracking-wide border-b border-gray-700 pb-1">Probability to Advance</h3>
+                
+                <div>
+                    <div class="flex justify-between text-sm font-semibold mb-1">
+                        <span id="nameA">Team A</span>
+                        <span id="probA">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-4">
+                        <div id="barA" class="bg-blue-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
                 </div>
-                <div class="w-full bg-gray-700 rounded-full h-4">
-                    <div id="barA" class="bg-blue-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+
+                <div>
+                    <div class="flex justify-between text-sm font-semibold mb-1">
+                        <span id="nameB">Team B</span>
+                        <span id="probB">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-4">
+                        <div id="barB" class="bg-red-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
                 </div>
             </div>
 
-            <div>
-                <div class="flex justify-between text-sm font-semibold mb-1">
-                    <span id="nameB">Team B</span>
-                    <span id="probB">0%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-4">
-                    <div id="barB" class="bg-red-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
-        // 1. Live 2026 World Cup Data Dictionary
+        // 1. Enhanced 2026 Data Dictionary with Player and Tactical Insights
         const teamsData = {
-            'Brazil': { elo: 2110, xgAtt: 2.45, xgDef: 0.55, host: 0.0, depth: 9.5 },
-            'Japan': { elo: 1860, xgAtt: 1.50, xgDef: 1.15, host: 0.0, depth: 6.0 },
-            'USA': { elo: 1940, xgAtt: 1.95, xgDef: 1.05, host: 0.25, depth: 7.5 },
-            'Bosnia': { elo: 1750, xgAtt: 1.15, xgDef: 1.50, host: 0.0, depth: 4.5 },
-            'Netherlands': { elo: 1990, xgAtt: 2.10, xgDef: 0.80, host: 0.0, depth: 8.5 },
-            'Morocco': { elo: 1895, xgAtt: 1.65, xgDef: 1.10, host: 0.0, depth: 7.0 },
-            'South Africa': { elo: 1690, xgAtt: 1.20, xgDef: 1.35, host: 0.0, depth: 3.5 },
-            'Canada': { elo: 1780, xgAtt: 1.40, xgDef: 1.25, host: 0.25, depth: 5.5 }
+            'Brazil': { 
+                elo: 2110, xgAtt: 2.45, xgDef: 0.55, host: 0.0, depth: 9.5,
+                insight: "Vinícius Júnior is the player to watch after netting consecutive braces in the group stages. His explosive 1v1 conversion rates will stress opposition transitional defensive shapes."
+            },
+            'Japan': { 
+                elo: 1860, xgAtt: 1.50, xgDef: 1.15, host: 0.0, depth: 6.0,
+                insight: "Kaoru Mitoma remains a lethal threat on counter-attacks. Japan's disciplined mid-block relies heavily on his progressive carries to challenge high defensive lines."
+            },
+            'USA': { 
+                elo: 1940, xgAtt: 1.95, xgDef: 1.05, host: 0.25, depth: 7.5,
+                insight: "Christian Pulisic is in exceptional form, driving creative progressions. Supported by a significant local host crowd advantage, the USMNT generates overloads down the left flank."
+            },
+            'Bosnia': { 
+                elo: 1750, xgAtt: 1.15, xgDef: 1.50, host: 0.0, depth: 4.5,
+                insight: "Ermedin Demirović leads a highly physical frontline. Bosnia's path to victory lies entirely in structural low-blocks and taking advantage of set-piece aerial mismatches."
+            },
+            'Netherlands': { 
+                elo: 1990, xgAtt: 2.10, xgDef: 0.80, host: 0.0, depth: 8.5,
+                insight: "Cody Gakpo is the key focal point, executing clinical finishes across three consecutive matches. Their high territorial pressure leaves gaps behind if pressed effectively."
+            },
+            'Morocco': { 
+                elo: 1895, xgAtt: 1.65, xgDef: 1.10, host: 0.0, depth: 7.0,
+                insight: "Achraf Hakimi provides rapid, overlapping wide transitions. Morocco controls match dynamics beautifully through compact midfield spacing and elite ball retention."
+            },
+            'South Africa': { 
+                elo: 1690, xgAtt: 1.20, xgDef: 1.35, host: 0.0, depth: 3.5,
+                insight: "Teboho Mokoena's deep distribution and long-range accuracy dictate their tempo. They face steep challenges when required to contain deeper squad rotations."
+            },
+            'Canada': { 
+                elo: 1780, xgAtt: 1.40, xgDef: 1.25, host: 0.25, depth: 5.5,
+                insight: "Alphonso Davies represents an elite tactical weapon out wide. Canada's regional tactical edge depends on utilizing his pure recovering speed to deny counters."
+            }
         };
 
-        // Populate Dropdowns Dynamically
+        // Populate Dropdowns Automatically
         const selectA = document.getElementById('teamA');
         const selectB = document.getElementById('teamB');
         Object.keys(teamsData).sort().forEach((team, index) => {
@@ -73,15 +112,11 @@
             selectB.options[selectB.options.length] = new Option(team, team, index === 1, index === 1);
         });
 
-        // Knuth's Algorithm for Poisson Distribution Random Variates
+        // Poisson Generator
         function getPoisson(lambda) {
             let L = Math.exp(-lambda);
-            let k = 0;
-            let p = 1.0;
-            do {
-                k++;
-                p *= Math.random();
-            } while (p > L && k < 100);
+            let k = 0, p = 1.0;
+            do { k++; p *= Math.random(); } while (p > L && k < 100);
             return k - 1;
         }
 
@@ -98,20 +133,11 @@
             const statsA = teamsData[teamA];
             const statsB = teamsData[teamB];
 
-            // Base Lambdas
-            let lambdaA = (statsA.xgAtt * statsB.xgDef / 1.2) + statsA.host;
-            let lambdaB = (statsB.xgAtt * statsA.xgDef / 1.2) + statsB.host;
+            let lambdaA = Math.max(0.1, (statsA.xgAtt * statsB.xgDef / 1.2) + statsA.host + (statsA.elo - statsB.elo) * 0.0005);
+            let lambdaB = Math.max(0.1, (statsB.xgAtt * statsA.xgDef / 1.2) + statsB.host - (statsA.elo - statsB.elo) * 0.0005);
 
-            // Elo adjustments
-            let eloDiff = statsA.elo - statsB.elo;
-            lambdaA += eloDiff * 0.0005;
-            lambdaB -= eloDiff * 0.0005;
-
-            lambdaA = Math.max(0.1, lambdaA);
-            lambdaB = Math.max(0.1, lambdaB);
-
-            let winA = 0;
-            let winB = 0;
+            let winA = 0, winB = 0;
+            let scoreLines = {}; // Track regular time scores
             const simulations = 10000;
 
             for (let i = 0; i < simulations; i++) {
@@ -119,12 +145,16 @@
                 let goalsA = getPoisson(lambdaA);
                 let goalsB = getPoisson(lambdaB);
 
+                // Log the exact scoreline
+                let scoreKey = `${goalsA}-${goalsB}`;
+                scoreLines[scoreKey] = (scoreLines[scoreKey] || 0) + 1;
+
                 if (goalsA > goalsB) {
                     winA++;
                 } else if (goalsB > goalsA) {
                     winB++;
                 } else {
-                    // Extra Time (30 mins)
+                    // Extra Time
                     let etGoalsA = getPoisson(lambdaA * 0.3);
                     let etGoalsB = getPoisson(lambdaB * 0.3);
 
@@ -134,23 +164,44 @@
                         winB++;
                     } else {
                         // Penalty Shootout 
-                        let psoWeightA = 0.5 + (statsA.depth - statsB.depth) * 0.02;
-                        psoWeightA = Math.min(Math.max(psoWeightA, 0.35), 0.65);
-
-                        if (Math.random() < psoWeightA) {
-                            winA++;
-                        } else {
-                            winB++;
-                        }
+                        let psoWeightA = Math.min(Math.max(0.5 + (statsA.depth - statsB.depth) * 0.02, 0.35), 0.65);
+                        if (Math.random() < psoWeightA) { winA++; } else { winB++; }
                     }
                 }
             }
 
-            // Calculations for UI presentation
+            // 1. Extract the Most Frequent Scoreline
+            let mostFrequentScore = "0-0";
+            let maxCount = 0;
+            for (const [score, count] of Object.entries(scoreLines)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    mostFrequentScore = score;
+                }
+            }
+            let [predGoalsA, predGoalsB] = mostFrequentScore.split("-");
+
+            // 2. Format UI Displays
             const probA = (winA / simulations) * 100;
             const probB = (winB / simulations) * 100;
 
-            // Show results UI element
+            document.getElementById('predictedScore').innerText = `${predGoalsA} - ${predGoalsB}`;
+            
+            // Overtime Notice helper context
+            if (predGoalsA === predGoalsB) {
+                let favoredWinner = probA > probB ? teamA : teamB;
+                document.getElementById('overtimeNotice').innerText = `⚠️ Match projected to go to Extra Time/Penalties. ${favoredWinner} holds the edge to ultimately advance.`;
+            } else {
+                document.getElementById('overtimeNotice').innerText = "⚡ Projection based on 90-minute regulatory expectation.";
+            }
+
+            // 3. Generate Dynamic Match Insight Commentary
+            document.getElementById('matchInsight').innerHTML = `
+                <strong>${teamA}:</strong> ${statsA.insight}<br><br>
+                <strong>${teamB}:</strong> ${statsB.insight}
+            `;
+
+            // 4. Update Probability Bars
             document.getElementById('nameA').innerText = teamA;
             document.getElementById('probA').innerText = probA.toFixed(2) + "%";
             document.getElementById('barA').style.width = probA + "%";
