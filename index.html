@@ -68,43 +68,39 @@
     </div>
 
     <script>
-        // 1. Enhanced 2026 Data Dictionary with Player and Tactical Insights
+        // 1. Enhanced 2026 Data Dictionary (All confirmed teams from your bracket screenshot)
         const teamsData = {
-            'Brazil': { 
-                elo: 2110, xgAtt: 2.45, xgDef: 0.55, host: 0.0, depth: 9.5,
-                insight: "Vinícius Júnior is the player to watch after netting consecutive braces in the group stages. His explosive 1v1 conversion rates will stress opposition transitional defensive shapes."
-            },
-            'Japan': { 
-                elo: 1860, xgAtt: 1.50, xgDef: 1.15, host: 0.0, depth: 6.0,
-                insight: "Kaoru Mitoma remains a lethal threat on counter-attacks. Japan's disciplined mid-block relies heavily on his progressive carries to challenge high defensive lines."
-            },
-            'USA': { 
-                elo: 1940, xgAtt: 1.95, xgDef: 1.05, host: 0.25, depth: 7.5,
-                insight: "Christian Pulisic is in exceptional form, driving creative progressions. Supported by a significant local host crowd advantage, the USMNT generates overloads down the left flank."
-            },
-            'Bosnia': { 
-                elo: 1750, xgAtt: 1.15, xgDef: 1.50, host: 0.0, depth: 4.5,
-                insight: "Ermedin Demirović leads a highly physical frontline. Bosnia's path to victory lies entirely in structural low-blocks and taking advantage of set-piece aerial mismatches."
-            },
-            'Netherlands': { 
-                elo: 1990, xgAtt: 2.10, xgDef: 0.80, host: 0.0, depth: 8.5,
-                insight: "Cody Gakpo is the key focal point, executing clinical finishes across three consecutive matches. Their high territorial pressure leaves gaps behind if pressed effectively."
-            },
-            'Morocco': { 
-                elo: 1895, xgAtt: 1.65, xgDef: 1.10, host: 0.0, depth: 7.0,
-                insight: "Achraf Hakimi provides rapid, overlapping wide transitions. Morocco controls match dynamics beautifully through compact midfield spacing and elite ball retention."
-            },
-            'South Africa': { 
-                elo: 1690, xgAtt: 1.20, xgDef: 1.35, host: 0.0, depth: 3.5,
-                insight: "Teboho Mokoena's deep distribution and long-range accuracy dictate their tempo. They face steep challenges when required to contain deeper squad rotations."
-            },
-            'Canada': { 
-                elo: 1780, xgAtt: 1.40, xgDef: 1.25, host: 0.25, depth: 5.5,
-                insight: "Alphonso Davies represents an elite tactical weapon out wide. Canada's regional tactical edge depends on utilizing his pure recovering speed to deny counters."
-            }
+            'Argentina': { elo: 2150, xgAtt: 2.20, xgDef: 0.60, host: 0.0, depth: 9.5, insight: "Lionel Messi's playmaking combined with relentless team work-rate makes them formidable in tight spaces." },
+            'Australia': { elo: 1650, xgAtt: 1.10, xgDef: 1.40, host: 0.0, depth: 4.5, insight: "Relies on immense physicality and set-piece threats to disrupt highly technical opponents." },
+            'Belgium': { elo: 1900, xgAtt: 1.90, xgDef: 1.00, host: 0.0, depth: 8.0, insight: "Kevin De Bruyne remains the central creative hub, capable of threading passes through deep defensive blocks." },
+            'Bosnia': { elo: 1750, xgAtt: 1.15, xgDef: 1.50, host: 0.0, depth: 4.5, insight: "Ermedin Demirović leads a highly physical frontline. Their path to victory lies in structural low-blocks." },
+            'Brazil': { elo: 2110, xgAtt: 2.45, xgDef: 0.55, host: 0.0, depth: 9.5, insight: "Vinícius Júnior is explosive in 1v1 situations. Their conversion rates will stress opposition transitional shapes." },
+            'Canada': { elo: 1780, xgAtt: 1.40, xgDef: 1.25, host: 0.25, depth: 5.5, insight: "Alphonso Davies represents an elite tactical weapon out wide, utilizing pure recovering speed to deny counters." },
+            'Cape Verde': { elo: 1500, xgAtt: 0.90, xgDef: 1.70, host: 0.0, depth: 3.0, insight: "A fearless underdog with rapid wingers looking to aggressively exploit high defensive lines on the counter." },
+            'Colombia': { elo: 1850, xgAtt: 1.60, xgDef: 1.10, host: 0.0, depth: 7.0, insight: "Luis Díaz brings unpredictable flair and pace to the left wing, constantly stretching defensive shapes." },
+            'Ecuador': { elo: 1720, xgAtt: 1.30, xgDef: 1.20, host: 0.0, depth: 5.5, insight: "Moises Caicedo covers immense ground. A highly athletic squad that is dominant in midfield duels." },
+            'Egypt': { elo: 1640, xgAtt: 1.20, xgDef: 1.30, host: 0.0, depth: 4.5, insight: "Mohamed Salah is the ultimate game-changer, capable of scoring from isolation even with limited possession." },
+            'England': { elo: 2050, xgAtt: 2.10, xgDef: 0.70, host: 0.0, depth: 9.0, insight: "Jude Bellingham drives the midfield. They possess incredible squad depth and versatile attacking options off the bench." },
+            'France': { elo: 2100, xgAtt: 2.30, xgDef: 0.65, host: 0.0, depth: 9.5, insight: "Kylian Mbappé's explosive pace is unmatched. They boast arguably the deepest talent pool in the tournament." },
+            'Germany': { elo: 2000, xgAtt: 2.05, xgDef: 0.85, host: 0.0, depth: 8.5, insight: "Jamal Musiala provides elite creative spark. They rely heavily on high pressing and fluid attacking rotations." },
+            'Ghana': { elo: 1600, xgAtt: 1.25, xgDef: 1.45, host: 0.0, depth: 5.0, insight: "Mohammed Kudus provides creative flair and a serious goal threat from central attacking midfield areas." },
+            'Ivory Coast': { elo: 1650, xgAtt: 1.35, xgDef: 1.30, host: 0.0, depth: 5.5, insight: "Fast transitional play powered by a highly physical and dynamic box-to-box midfield presence." },
+            'Japan': { elo: 1860, xgAtt: 1.50, xgDef: 1.15, host: 0.0, depth: 6.0, insight: "Kaoru Mitoma remains a lethal threat. Japan's disciplined mid-block relies on his progressive carries." },
+            'Mexico': { elo: 1750, xgAtt: 1.45, xgDef: 1.20, host: 0.25, depth: 6.5, insight: "Edson Álvarez anchors the midfield. Mexico enjoys a massive home-continent crowd advantage pushing their tempo." },
+            'Morocco': { elo: 1895, xgAtt: 1.65, xgDef: 1.10, host: 0.0, depth: 7.0, insight: "Achraf Hakimi provides rapid, overlapping transitions. They control dynamics beautifully through compact spacing." },
+            'Netherlands': { elo: 1990, xgAtt: 2.10, xgDef: 0.80, host: 0.0, depth: 8.5, insight: "Cody Gakpo is the key focal point. Their high territorial pressure leaves gaps behind if bypassed effectively." },
+            'Norway': { elo: 1730, xgAtt: 1.55, xgDef: 1.35, host: 0.0, depth: 6.0, insight: "Erling Haaland is an absolute force in the box. Early crosses and direct balls are highly effective for them." },
+            'Paraguay': { elo: 1680, xgAtt: 1.05, xgDef: 1.15, host: 0.0, depth: 4.5, insight: "A gritty defensive low-block team that excels at frustrating high-possession sides with tactical fouling." },
+            'Portugal': { elo: 2020, xgAtt: 2.15, xgDef: 0.75, host: 0.0, depth: 8.5, insight: "Bruno Fernandes orchestrates attacks, feeding a versatile and highly lethal front line." },
+            'South Africa': { elo: 1690, xgAtt: 1.20, xgDef: 1.35, host: 0.0, depth: 3.5, insight: "Teboho Mokoena's deep distribution dictates their tempo. They struggle when forced to contain deeper squad rotations." },
+            'South Korea': { elo: 1700, xgAtt: 1.35, xgDef: 1.25, host: 0.0, depth: 5.5, insight: "Son Heung-min's leadership and elite two-footed finishing make them incredibly dangerous on the counter-attack." },
+            'Spain': { elo: 2050, xgAtt: 1.95, xgDef: 0.60, host: 0.0, depth: 9.0, insight: "Rodri controls the rhythm. They dominate possession and suffocate opponents with immediate counter-pressing." },
+            'Sweden': { elo: 1740, xgAtt: 1.45, xgDef: 1.20, host: 0.0, depth: 6.0, insight: "Alexander Isak offers clinical finishing. They are heavily dangerous on attacking transitions and set-pieces." },
+            'Switzerland': { elo: 1800, xgAtt: 1.40, xgDef: 1.10, host: 0.0, depth: 6.5, insight: "Granit Xhaka dictates the tempo. They feature a highly organized and notoriously resilient defensive unit." },
+            'USA': { elo: 1940, xgAtt: 1.95, xgDef: 1.05, host: 0.25, depth: 7.5, insight: "Christian Pulisic drives creative progressions. Supported by a home crowd, they generate heavy overloads out wide." }
         };
 
-        // Populate Dropdowns Automatically
+        // Populate Dropdowns Dynamically
         const selectA = document.getElementById('teamA');
         const selectB = document.getElementById('teamB');
         Object.keys(teamsData).sort().forEach((team, index) => {
@@ -112,7 +108,7 @@
             selectB.options[selectB.options.length] = new Option(team, team, index === 1, index === 1);
         });
 
-        // Poisson Generator
+        // Poisson Distribution Random Generator
         function getPoisson(lambda) {
             let L = Math.exp(-lambda);
             let k = 0, p = 1.0;
@@ -133,11 +129,12 @@
             const statsA = teamsData[teamA];
             const statsB = teamsData[teamB];
 
+            // Adjust attack values dynamically relative to target opponent defensive stability and Elo differentials
             let lambdaA = Math.max(0.1, (statsA.xgAtt * statsB.xgDef / 1.2) + statsA.host + (statsA.elo - statsB.elo) * 0.0005);
             let lambdaB = Math.max(0.1, (statsB.xgAtt * statsA.xgDef / 1.2) + statsB.host - (statsA.elo - statsB.elo) * 0.0005);
 
             let winA = 0, winB = 0;
-            let scoreLines = {}; // Track regular time scores
+            let scoreLines = {}; // Store results of regular-time projections
             const simulations = 10000;
 
             for (let i = 0; i < simulations; i++) {
@@ -145,7 +142,6 @@
                 let goalsA = getPoisson(lambdaA);
                 let goalsB = getPoisson(lambdaB);
 
-                // Log the exact scoreline
                 let scoreKey = `${goalsA}-${goalsB}`;
                 scoreLines[scoreKey] = (scoreLines[scoreKey] || 0) + 1;
 
@@ -154,7 +150,7 @@
                 } else if (goalsB > goalsA) {
                     winB++;
                 } else {
-                    // Extra Time
+                    // Extra Time (30 mins)
                     let etGoalsA = getPoisson(lambdaA * 0.3);
                     let etGoalsB = getPoisson(lambdaB * 0.3);
 
@@ -170,7 +166,7 @@
                 }
             }
 
-            // 1. Extract the Most Frequent Scoreline
+            // Extract the most frequent scoreline structure
             let mostFrequentScore = "0-0";
             let maxCount = 0;
             for (const [score, count] of Object.entries(scoreLines)) {
@@ -181,13 +177,12 @@
             }
             let [predGoalsA, predGoalsB] = mostFrequentScore.split("-");
 
-            // 2. Format UI Displays
             const probA = (winA / simulations) * 100;
             const probB = (winB / simulations) * 100;
 
+            // Render score display
             document.getElementById('predictedScore').innerText = `${predGoalsA} - ${predGoalsB}`;
             
-            // Overtime Notice helper context
             if (predGoalsA === predGoalsB) {
                 let favoredWinner = probA > probB ? teamA : teamB;
                 document.getElementById('overtimeNotice').innerText = `⚠️ Match projected to go to Extra Time/Penalties. ${favoredWinner} holds the edge to ultimately advance.`;
@@ -195,13 +190,13 @@
                 document.getElementById('overtimeNotice').innerText = "⚡ Projection based on 90-minute regulatory expectation.";
             }
 
-            // 3. Generate Dynamic Match Insight Commentary
+            // Render custom team insights
             document.getElementById('matchInsight').innerHTML = `
                 <strong>${teamA}:</strong> ${statsA.insight}<br><br>
                 <strong>${teamB}:</strong> ${statsB.insight}
             `;
 
-            // 4. Update Probability Bars
+            // Render structural probability tracking bars
             document.getElementById('nameA').innerText = teamA;
             document.getElementById('probA').innerText = probA.toFixed(2) + "%";
             document.getElementById('barA').style.width = probA + "%";
